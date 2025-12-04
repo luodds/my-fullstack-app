@@ -1,8 +1,8 @@
 // app/layout.tsx
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { ThemeProvider } from '@/components/ThemeProvider'; // 引入组件
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import { ThemeProvider } from '@/components/features/ThemeProvider'; // 引入组件
 
 export const metadata = {
   title: '我的全栈博客',
