@@ -15,3 +15,10 @@ model User {
   name      String?
   createdAt DateTime @default(now())
 }
+
+model Guestbook {
+  id        String   @id @default(cuid()) // 自动生成唯一ID
+  content   String   // 留言内容
+  username  String   // 留言人名字
+  createdAt DateTime @default(now())      // 创建时间，自动设为当前时间
+}
