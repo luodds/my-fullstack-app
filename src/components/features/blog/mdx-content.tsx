@@ -12,17 +12,41 @@ import rehypeKatex from 'rehype-katex';
 // 1. 自定义组件映射
 const components = {
   // 替换图片
-  img: (props: any) => (
-    <span className="block my-8 relative w-full h-[400px] rounded-lg overflow-hidden bg-muted">
-      <Image
-        src={props.src}
-        alt={props.alt || 'Blog Image'}
-        fill
-        className="object-cover transition-transform hover:scale-105 duration-500"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
-    </span>
-  ),
+  img: (props: any) => {
+    const isExternal = props.src.startsWith('http');
+    
+    // 使用 span (block) 代替 figure，完美解决 "<figure> inside <p>" 报错
+    return (
+      <span className="block my-8 w-full">
+        <Image
+          src={props.src}
+          alt={props.alt || 'Blog Image'}
+          // 核心修复：
+          // 1. width={0} height={0} sizes="100vw": 告诉 Next.js 图片大小不固定
+          // 2. w-full h-auto: CSS 层面强制宽度占满，高度自动缩放 (解决裁切问题)
+          {...(isExternal
+            ? { 
+                width: 800, 
+                height: 450, 
+                className: "w-full h-auto rounded-lg bg-muted object-contain" 
+              }
+            : { 
+                width: 0, 
+                height: 0, 
+                sizes: "100vw", 
+                className: "w-full h-auto rounded-lg" 
+              }
+          )}
+        />
+        {/* 图片标题 (如果有) */}
+        {props.title && (
+          <span className="block text-center text-sm text-muted-foreground mt-2">
+            {props.title}
+          </span>
+        )}
+      </span>
+    );
+  },
   // 替换链接
   a: ({ href, children, ...props }: any) => {
     // 排除锚点链接 (我们下面配置生成的 anchor-link 类名)

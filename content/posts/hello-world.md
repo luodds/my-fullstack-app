@@ -1,22 +1,13 @@
 ---
-    title: "这是我用 VS Code 写的第一篇文章"
-    slug: "hello-from-vscode"
-    description: "通过脚本自动同步到数据库，太方便了！"
+    title: "图片自动化测试"
+    slug: "image-test"
     published: true
-    date: "2025-12-05"
 ---
 
-## 你好，世界！
+## 这是一张测试图片
 
-这是我在本地写的 **Markdown** 文件。
-
-它可以直接同步到我的 **全栈博客系统** 中。
-
-### 数学公式测试
-$$
-E = mc^2
-$$
-
-### 代码测试
-```python
-print("Sync success!")
+直接引用本地文件：
+    
+![一只可爱的猫](../img/cat.jpg)
+    
+(脚本运行后，上面这个路径会自动变成 /images/blog/image-test/cat.jpg)
