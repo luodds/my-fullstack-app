@@ -2,6 +2,8 @@
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+// 👇 新增这一行 (引入 Atom One Dark 主题)
+import "highlight.js/styles/atom-one-dark.css";
 import { ThemeProvider } from '@/components/features/ThemeProvider';
 
 export const metadata = {

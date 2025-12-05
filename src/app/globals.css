@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* 引入 typography 插件 */
+@plugin "@tailwindcss/typography";
+
 /* 
   👇 Tailwind v4 配置核心：直接在 CSS 里定义主题
   这相当于以前 tailwind.config.ts 里的 extend.colors
