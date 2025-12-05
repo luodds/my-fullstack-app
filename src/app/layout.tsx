@@ -6,6 +6,9 @@ import Footer from '@/components/layout/Footer';
 import "highlight.js/styles/atom-one-dark.css";
 import { ThemeProvider } from '@/components/features/ThemeProvider';
 
+// 👇 新增这一行：引入 Katex 数学公式样式
+import "katex/dist/katex.min.css"; 
+
 export const metadata = {
   title: '我的全栈博客',
   description: '使用 Next.js 构建的全栈应用',

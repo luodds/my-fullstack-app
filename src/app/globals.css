@@ -3,12 +3,11 @@
 /* 引入 typography 插件 */
 @plugin "@tailwindcss/typography";
 
-/* 
-  👇 Tailwind v4 配置核心：直接在 CSS 里定义主题
-  这相当于以前 tailwind.config.ts 里的 extend.colors
+/* 👇 Tailwind v4 配置区 
+  这里混合了 Shadcn UI 的基础配置和你需要的 Markdown 增强配置
 */
 @theme {
-  /* 定义颜色映射：让 bg-background 对应 hsl(var(--background)) */
+  /* ================= Shadcn UI 基础配置 ================= */
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -39,9 +38,29 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  /* ================= 👇 新增：Markdown 样式覆盖 ================= */
+  /* 这部分只影响带有 className="prose" 的区域，绝对安全 */
+  
+  --color-prose-body: hsl(var(--foreground));
+  --color-prose-headings: hsl(var(--foreground));
+  --color-prose-lead: hsl(var(--foreground));
+  --color-prose-links: hsl(var(--primary)); /* 链接可以使用主色调，更显眼 */
+  --color-prose-bold: hsl(var(--foreground));
+  --color-prose-counters: hsl(var(--foreground));
+  --color-prose-bullets: hsl(var(--foreground));
+  --color-prose-hr: hsl(var(--border));
+  --color-prose-quotes: hsl(var(--foreground));
+  --color-prose-quote-borders: hsl(var(--border));
+  --color-prose-captions: hsl(var(--muted-foreground));
+  --color-prose-code: hsl(var(--foreground));
+  --color-prose-pre-code: hsl(var(--foreground));
+  --color-prose-pre-bg: hsl(var(--muted)); /* 代码块背景使用静音色 */
+  --color-prose-th-borders: hsl(var(--border));
+  --color-prose-td-borders: hsl(var(--border));
 }
 
-/* 👇 这里定义 CSS 变量的具体颜色值 (Shadcn UI 标准色值) */
+/* 👇 CSS 变量定义 (保持不变) */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -92,9 +111,16 @@
 /* 全局应用基础样式 */
 @layer base {
   * {
-    @apply border-border; /* 这里的 border-border 现在能找到了 */
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* 👇 这是一个小补丁：专门解决代码高亮背景冲突问题 */
+@layer utilities {
+  .prose pre {
+    @apply bg-transparent p-0 m-0 border-0;
   }
 }
