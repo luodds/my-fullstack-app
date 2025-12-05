@@ -1,0 +1,36 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+model Guestbook {
+  id        String   @id @default(cuid())
+  content   String
+  username  String
+  createdAt DateTime @default(now())
+}
+
+// 新增：博客文章模型
+model Post {
+  id        String   @id @default(cuid())
+  title     String   // 文章标题
+  slug      String   @unique // URL 别名 (例如: "my-first-post")，必须唯一
+  overview  String?  // 文章简介 (可选，用于在列表页展示一段预览文字)
+  content   String   // 存放 Markdown 原始内容
+  published Boolean  @default(false) // 发布状态，默认是草稿，不显示在也没
+  createdAt DateTime @default(now()) // 创建时间
+  updatedAt DateTime @updatedAt      // 更新时间 (Prisma 会自动维护)
+}
